@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+          "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+          "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<!--
+    Checkstyle dla Apteczki Domowej. Punkt wyjścia: google_checks.xml (Checkstyle 14.1.0), okrojony.
+
+    Podział odpowiedzialności:
+      - Spotless (palantir-java-format) odpowiada za WYGLĄD: wcięcia, długość linii, białe znaki, kolejność importów.
+      - Checkstyle odpowiada za JAKOŚĆ: nazwy, nieużywane importy, `final`, puste bloki, pułapki językowe.
+    Dlatego usunięto reguły formatowania (Indentation, LineLength, OperatorWrap, SeparatorWrap, WhitespaceAround,
+    CustomImportOrder, LeftCurly/RightCurly itd.) oraz wymóg Javadoc (Missing*Javadoc). Reguły dodajemy i usuwamy
+    tutaj; pojedyncze wyjątki: // CHECKSTYLE.SUPPRESS: NazwaReguly for 1 lines
+-->
+<module name="Checker">
+  <property name="charset" value="UTF-8"/>
+  <property name="severity" value="error"/>
+  <property name="fileExtensions" value="java"/>
+
+  <module name="SuppressWarningsFilter"/>
+  <module name="SuppressWithNearbyTextFilter">
+    <property name="nearbyTextPattern" value="CHECKSTYLE.SUPPRESS\: (\w+) for ([+-]\d+) lines"/>
+    <property name="checkPattern" value="$1"/>
+    <property name="lineRange" value="$2"/>
+  </module>
+
+  <module name="TreeWalker">
+    <module name="SuppressWarningsHolder"/>
+
+    <!-- Struktura pliku -->
+    <module name="OuterTypeFilename"/>
+    <module name="OneTopLevelClass"/>
+    <module name="AvoidStarImport"/>
+    <module name="UnusedImports"/>
+    <module name="RedundantImport"/>
+
+    <!-- final: parametry i zmienne lokalne wszędzie, gdzie się da -->
+    <module name="FinalParameters">
+      <property name="tokens" value="METHOD_DEF, CTOR_DEF, LITERAL_CATCH, FOR_EACH_CLAUSE"/>
+    </module>
+    <module name="FinalLocalVariable">
+      <property name="tokens" value="VARIABLE_DEF"/>
+      <property name="validateEnhancedForLoopVariable" value="true"/>
+    </module>
+    <module name="FinalClass"/>
+
+    <!-- Poprawność i pułapki językowe -->
+    <module name="NeedBraces"/>
+    <module name="EmptyBlock">
+      <property name="option" value="TEXT"/>
+    </module>
+    <module name="EmptyCatchBlock">
+      <property name="commentFormat" value="\w+"/>
+    </module>
+    <module name="MissingSwitchDefault"/>
+    <module name="FallThrough"/>
+    <module name="EqualsHashCode"/>
+    <module name="StringLiteralEquality"/>
+    <module name="InnerAssignment"/>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+    <module name="NoFinalizer"/>
+    <module name="OneStatementPerLine"/>
+    <module name="MultipleVariableDeclarations"/>
+    <module name="ArrayTypeStyle"/>
+    <module name="UpperEll"/>
+    <module name="ModifierOrder"/>
+    <module name="RedundantModifier"/>
+    <module name="OverloadMethodsDeclarationOrder"/>
+    <module name="AvoidEscapedUnicodeCharacters">
+      <property name="allowEscapesForControlCharacters" value="true"/>
+      <property name="allowByTailComment" value="true"/>
+      <property name="allowNonPrintableEscapes" value="true"/>
+    </module>
+
+    <!-- Nazwy (Google), z jednym odstępstwem: podkreślenie w pakiecie com.dominikf.apteczka_domowa -->
+    <module name="PackageName">
+      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9_]*)*$"/>
+    </module>
+    <module name="TypeName"/>
+    <module name="GoogleNonConstantFieldName"/>
+    <module name="ParameterName">
+      <property name="ignoreOverridden" value="true"/>
+      <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
+    </module>
+    <module name="LambdaParameterName"/>
+    <module name="CatchParameterName"/>
+    <module name="RecordComponentName"/>
+    <module name="LocalVariableName"/>
+    <module name="LocalFinalVariableName"/>
+    <module name="PatternVariableName"/>
+    <module name="ClassTypeParameterName"/>
+    <module name="MethodTypeParameterName"/>
+    <module name="InterfaceTypeParameterName"/>
+    <module name="GoogleMethodName"/>
+    <module name="AbbreviationAsWordInName">
+      <property name="ignoreFinal" value="false"/>
+      <property name="allowedAbbreviationLength" value="0"/>
+      <property name="tokens"
+                value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF, PARAMETER_DEF,
+                       VARIABLE_DEF, METHOD_DEF, PATTERN_VARIABLE_DEF, RECORD_DEF, RECORD_COMPONENT_DEF"/>
+    </module>
+
+    <!-- Komentarze -->
+    <module name="TodoComment">
+      <property name="id" value="TodoFormat"/>
+      <property name="format" value="^[ \t]*(?!TODO:)(?i:TODO)\b:?"/>
+      <message key="todo.match" value="''TODO:'' must be written in all caps and followed by a colon."/>
+    </module>
+    <module name="InvalidJavadocPosition"/>
+    <module name="NonEmptyAtclauseDescription"/>
+    <module name="SingleLineJavadoc"/>
+    <module name="SuppressionCommentFilter">
+      <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+      <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+      <property name="checkFormat" value="$1"/>
+    </module>
+  </module>
+</module>

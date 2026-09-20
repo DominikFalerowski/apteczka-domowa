@@ -1,9 +1,13 @@
 services:
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:18'
+    labels:
+      - 'org.springframework.boot.ignore=true'
     environment:
-      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_DB=apteczka'
       - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_USER=apteczka_admin'
     ports:
-      - '5432'
+      - '5433:5432'
+    volumes:
+      - './db/init:/docker-entrypoint-initdb.d:ro'
