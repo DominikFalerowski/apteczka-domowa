@@ -3,7 +3,7 @@ project: "Apteczka Domowa"
 version: 1
 status: draft
 created: 2026-09-22
-updated: 2026-09-22
+updated: 2026-09-24
 prd_version: 1
 main_goal: market-feedback
 top_blocker: external
@@ -41,7 +41,7 @@ Domowa apteczka leży w szufladzie bez ewidencji: w aptece nie wiadomo, co już 
 
 | ID    | Change ID                            | Rezultat (użytkownik może …)                                          | Prerequisites | PRD refs                          | Status   |
 | ----- | ------------------------------------ | --------------------------------------------------------------------- | ------------- | --------------------------------- | -------- |
-| F-01  | `szkielet-frontu`                    | (fundament) front buduje się i jest serwowany przez Spring            | —             | NFR (telefon), Access Control     | ready    |
+| F-01  | `szkielet-frontu`                    | (fundament) front buduje się i jest serwowany przez Spring            | —             | NFR (telefon), Access Control     | in-progress |
 | F-02  | `import-rejestru-lekow`              | (fundament) dane Rejestru Produktów Leczniczych są w bazie            | —             | FR-007, FR-013, FR-014            | ready    |
 | F-03  | `waznosc-po-otwarciu-z-chpl`         | (fundament) znana ważność po otwarciu z ChPL/ulotek                   | F-02          | FR-019, US-02                     | proposed |
 | S-01  | `konto-i-apteczka`                   | założyć konto, zalogować się i utworzyć własną apteczkę               | F-01          | FR-001, FR-002, Access Control    | proposed |
@@ -87,7 +87,7 @@ Fundamenty poniżej zakładają, że to istnieje, i tego nie budują ponownie.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Ułożony pierwszy, bo żaden kawałek użytkowy nie da się zweryfikować bez powłoki. Zakres celowo ścięty do budowania, serwowania i jednej trasy — realny interfejs dochodzi w `S-01`. Ryzyko: rozlanie się do „zbudujmy cały design system" i zjedzenie budżetu, który miał iść na regułę duplikatu.
-- **Status:** ready
+- **Status:** in-progress
 
 ### F-02: Jednorazowy import Rejestru Produktów Leczniczych
 
