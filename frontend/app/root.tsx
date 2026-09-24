@@ -11,7 +11,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 
 // Tytuł ustawiamy w root, bo w trybie SPA tylko root jest prerenderowany do index.html.
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [{ title: "Apteczka Domowa" }];
 }
 
